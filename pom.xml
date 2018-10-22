@@ -25,6 +25,26 @@
     <packaging>jar</packaging>
     <name>alm-test-result-collection-tool</name>
 
+    <url>https://github.com/MicroFocus/alm-test-result-collection-tool</url>
+    <organization>
+        <name>Micro Focus</name>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:ssh://github.com/MicroFocus/octane-collection-tool.git</connection>
+        <developerConnection>scm:git:ssh://github.com/MicroFocus/alm-test-result-collection-tool.git</developerConnection>
+        <url>https://github.com/MicroFocus/alm-test-result-collection-tool</url>
+        <tag>HEAD</tag>
+    </scm>
+
+
     <properties>
         <jdk.version>1.8</jdk.version>
         <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
