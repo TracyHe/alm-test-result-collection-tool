@@ -10,6 +10,6 @@ Latest release branch status:
 [![Build status](https://ci.appveyor.com/api/projects/status/0yiigx0uvb6vhoqr?svg=true)](https://ci.appveyor.com/project/OctaneCIPlugins/alm-test-result-collection-tool)
 
 ### Usage
-java -jar test-result-collection-tool.jar [OPTIONS]... FILE [FILE]...
+java -jar alm-test-result-collection-tool.jar [OPTIONS]...
 
 For more information read the following : [readme](https://github.com/MicroFocus/alm-test-result-collection-tool/tree/master/src/main/assemblies/content)
