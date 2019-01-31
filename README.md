@@ -1,6 +1,5 @@
 ![Micro Focus Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Micro_Focus_logo.svg/220px-Micro_Focus_logo.svg.png)
 # Micro Focus Lifecycle Management ALM Test Result Collection Tool
-The Micro Focus ALM Test Result Collection Tool is a command line tool for retrieving test results from ALM and sending them to ALM Octane.
 
 
 Project status:
