@@ -70,7 +70,6 @@ public class OctaneEntityService implements SupportRelogin {
         authData = new OctaneAuthenticationPojo();
         authData.setUser(user);
         authData.setPassword(password);
-        authData.setEnable_csrf(true);
         boolean result = loginInternal();
         if (result) {
             restConnector.setSupportRelogin(this);
@@ -135,7 +134,6 @@ public class OctaneEntityService implements SupportRelogin {
 
         Map<String, String> headers = new HashMap<>();
         headers.put(HTTPUtils.HEADER_ACCEPT, HTTPUtils.HEADER_APPLICATION_JSON);
-        headers.put(OctaneRestConstants.CLIENTTYPE_HEADER, OctaneRestConstants.CLIENTTYPE_INTERNAL);
 
         String entitiesCollectionStr = restConnector.httpGet(entityCollectionUrl, Arrays.asList(queryString), headers).getResponseData();
         JSONObject jsonObj = new JSONObject(entitiesCollectionStr);

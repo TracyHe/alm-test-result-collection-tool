@@ -39,7 +39,6 @@ public class OctaneWrapperService {
 
         restConnector = new RestConnector();
         restConnector.setBaseUrl(baseUrl);
-        restConnector.setCSRF("HPSSO-HEADER-CSRF", "HPSSO_COOKIE_CSRF");
 
         octaneEntityService = new OctaneEntityService(restConnector);
         octaneEntityService.setSharedSpaceId(sharedSpaceId);

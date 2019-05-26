@@ -39,7 +39,7 @@ public class CliParser {
     private static final String CMD_LINE_SYNTAX = "java -jar alm-test-result-collection-tool.jar [OPTIONS]... \n";
     private static final String HEADER = "Micro Focus ALM Test Result Collection Tool";
     private static final String FOOTER = "";
-    private static final String VERSION = "1.0.8";
+    private static final String VERSION = "1.0.9";
 
     public static final String DEFAULT_CONF_FILE = "conf.xml";
     public static final String DEFAULT_OUTPUT_FILE = "output.xml";

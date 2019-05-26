@@ -16,6 +16,7 @@
 
 package com.microfocus.mqm.atrf.core.rest;
 
+import com.microfocus.mqm.atrf.octane.services.OctaneRestConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
@@ -44,18 +45,9 @@ public class RestConnector {
     private static String proxyHost;
     private static int proxyPort;
 
-    private String csrfHeaderName;
-    private String csrfCookieName;
-
-
     public static void setProxy(String host, int port) {
         proxyHost = host;
         proxyPort = port;
-    }
-
-    public void setCSRF(String csrfHeader, String csrfCookieName) {
-        this.csrfHeaderName = csrfHeader;
-        this.csrfCookieName = csrfCookieName;
     }
 
     /**
@@ -163,6 +155,7 @@ public class RestConnector {
             con.setRequestMethod(type);
             String cookieString = getCookieString();
 
+            headers.put(OctaneRestConstants.CLIENTTYPE_HEADER, OctaneRestConstants.CLIENTTYPE_INTERNAL);
             prepareHttpRequest(con, headers, data, cookieString);
 
             con.connect();
@@ -238,11 +231,6 @@ public class RestConnector {
                 }
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
-        }
-
-        //set CSRF
-        if (StringUtils.isNotEmpty(csrfHeaderName) && StringUtils.isNotEmpty(csrfCookieName) && cookies.containsKey(csrfCookieName)) {
-            con.setRequestProperty(csrfHeaderName, cookies.get(csrfCookieName));
         }
 
         //if there's data to attach to the request, it's handled here. note that if data exists, we take into account previously removed content-TYPE.
