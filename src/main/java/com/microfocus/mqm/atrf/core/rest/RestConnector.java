@@ -155,7 +155,10 @@ public class RestConnector {
             con.setRequestMethod(type);
             String cookieString = getCookieString();
 
-            headers.put(OctaneRestConstants.CLIENTTYPE_HEADER, OctaneRestConstants.CLIENTTYPE_INTERNAL);
+            if (headers != null) {
+                headers.put(OctaneRestConstants.CLIENTTYPE_HEADER, OctaneRestConstants.CLIENTTYPE_INTERNAL);
+            }
+
             prepareHttpRequest(con, headers, data, cookieString);
 
             con.connect();
