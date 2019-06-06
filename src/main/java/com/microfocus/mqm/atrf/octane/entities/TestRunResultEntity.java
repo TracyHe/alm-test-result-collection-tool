@@ -92,11 +92,7 @@ public class TestRunResultEntity {
     }
 
     public void setDuration(String duration) {
-        if (StringUtils.isEmpty(duration)) {
-            this.duration = "0";
-        } else {
-            this.duration = duration;
-        }
+        this.duration = duration;
     }
 
     public Map<String, String> getEnvironment() {

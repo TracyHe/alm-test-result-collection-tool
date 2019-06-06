@@ -17,6 +17,7 @@
 
 package com.microfocus.mqm.atrf;
 
+import com.microfocus.mqm.atrf.alm.entities.*;
 import com.microfocus.mqm.atrf.alm.services.AlmQueryBuilder;
 import com.microfocus.mqm.atrf.alm.services.AlmWrapperService;
 import com.microfocus.mqm.atrf.core.configuration.ConfigurationUtilities;
@@ -26,7 +27,6 @@ import com.microfocus.mqm.atrf.core.rest.RestStatusException;
 import com.microfocus.mqm.atrf.octane.core.OctaneTestResultOutput;
 import com.microfocus.mqm.atrf.octane.entities.TestRunResultEntity;
 import com.microfocus.mqm.atrf.octane.services.OctaneWrapperService;
-import com.microfocus.mqm.atrf.alm.entities.*;
 import com.sun.org.apache.xerces.internal.util.XMLChar;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -42,12 +42,16 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by berkovir on 08/12/2016.
@@ -439,9 +443,16 @@ public class App {
             injectionEntity.setModule(almWrapper.getDomain());
             injectionEntity.setClassValue(restrictTo255(sanitizeForXml(testFolder.getName())));
 
+            long durationMs = 0;
+            try {
+                //alm duration is in sec but in octane we need to put ms
+                durationMs = TimeUnit.SECONDS.toMillis(Long.parseLong(run.getDuration()));
+            } catch (NumberFormatException e) {
+                durationMs = 0;
+            }
 
             //RUN FIELDS
-            injectionEntity.setDuration(run.getDuration());
+            injectionEntity.setDuration(Long.toString(durationMs));
             injectionEntity.setRunName(restrictTo255(String.format("AlmTestSet #%s : %s", testSet.getId(), sanitizeForXml(testSet.getName()))));
             injectionEntity.setExternalReportUrl(almWrapper.generateALMReferenceURL(run));
 
