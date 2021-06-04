@@ -51,7 +51,7 @@
         <commons-io.version>2.7</commons-io.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons-cli.version>1.3.1</commons-cli.version>
-        <httpclient.version>4.5.1</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <json.version>20160212</json.version>
         <file.name>${project.artifactId}.one-jar.jar</file.name>
         <shade.file.name>${project.artifactId}.shade</shade.file.name>
