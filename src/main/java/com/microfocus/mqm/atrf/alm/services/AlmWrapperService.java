@@ -21,11 +21,13 @@ import com.microfocus.mqm.atrf.alm.core.AlmEntity;
 import com.microfocus.mqm.atrf.alm.entities.*;
 import com.microfocus.mqm.atrf.core.configuration.ConfigurationUtilities;
 import com.microfocus.mqm.atrf.core.configuration.FetchConfiguration;
+import com.microfocus.mqm.atrf.core.rest.Response;
 import com.microfocus.mqm.atrf.core.rest.RestConnector;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.HttpURLConnection;
 import java.util.*;
 
 
@@ -41,6 +43,7 @@ public class AlmWrapperService {
     private Map<String, Test> tests = new HashMap<>();
     private Map<String, TestFolder> testFolders = new HashMap<>();
     private Map<String, TestConfiguration> testConfigurations = new HashMap<>();
+    private Map<String,Attachment> attachments = new HashMap<>();
 
     TestFolder unattachedTestFolder;
 
@@ -134,6 +137,7 @@ public class AlmWrapperService {
 
     private List<AlmEntity> fetchTests(Collection<Run> runs) {
         Set<String> ids = getIdsNotIncludedInSet(runs, Run.FIELD_TEST_ID, tests.keySet());
+
         List<AlmEntity> myTests = Collections.emptyList();
         if (!ids.isEmpty()) {
             List<String> fields = Arrays.asList(Test.FIELD_NAME, Test.FIELD_PARENT_ID, Test.FIELD_SUBTYPE);
@@ -144,6 +148,19 @@ public class AlmWrapperService {
         }
 
         return myTests;
+    }
+
+    private void fetchAttachments(Collection<Run> runs)
+    {
+        for (Run r : runs){
+
+            try {
+                almEntityService.getAttachmentsByParent(r.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public List<AlmEntity> fetchTestFolders(Collection<AlmEntity> tests) {
@@ -221,6 +238,8 @@ public class AlmWrapperService {
         return ids;
     }
 
+
+
     public List<Run> fetchRuns(AlmQueryBuilder queryBuilder) { // maxPages = -1 --> fetch all runs
 
         List<Run> runs = new ArrayList<>();
@@ -264,6 +283,7 @@ public class AlmWrapperService {
         fetchTestFolders(tests);
         fetchTestSets(runs);
         fetchTestConfigurations(runs);
+        fetchAttachments(runs);
     }
 
     private boolean clearMapIfSizeIsExceed(Map map, int maxSize) {
@@ -349,5 +369,6 @@ public class AlmWrapperService {
     public String generateALMReferenceURL(AlmEntity entity) {
         return almEntityService.generateALMReferenceURL(entity);
     }
+
 
 }

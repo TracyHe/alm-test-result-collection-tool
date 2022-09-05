@@ -41,6 +41,7 @@ public class Run extends AlmEntity {
     public static String FIELD_EXECUTOR = "owner";
     public static String FIELD_TEST_CONFIG_ID = "test-config-id";
 
+
     public Run() {
         super(TYPE);
     }

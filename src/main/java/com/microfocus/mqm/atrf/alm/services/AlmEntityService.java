@@ -30,6 +30,7 @@ import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
 import java.util.*;
 
 /**
@@ -89,6 +90,24 @@ public class AlmEntityService {
         return Collections.emptyList();
     }
 
+    public String getAttachmentsByParent(String id) throws Exception {
+        Map<String, String> requestHeaders = new HashMap<String, String>();
+
+        /* A get operation that specifies via accept header that
+           we must have an application/octet-stream reply.
+           An alt query parameter could also have been used. */
+        requestHeaders.put("Accept", "application/octet-stream");
+        String url = restConnector.getBaseUrl()+"/run/"+id+"/attachments/";
+
+        Response readResponse =
+                restConnector.httpGet(url, null, requestHeaders);
+
+        if (readResponse.getStatusCode() != HttpURLConnection.HTTP_OK) {
+            throw new Exception(readResponse.toString());
+        }
+
+        return readResponse.getResponseData();
+    }
     private void handleExceptionFromALM(RuntimeException e) {
         String errorMsg;
         try {
